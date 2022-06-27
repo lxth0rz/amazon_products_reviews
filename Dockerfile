@@ -24,10 +24,6 @@ RUN pip install requests
 RUN pip install scrapy
 RUN pip install apify-client
 RUN pip install nltk
-RUN nltk.download('punkt')
-RUN nltk.download('averaged_perceptron_tagger')
-RUN nltk.download('stopwords')
-RUN stopwords.words('english')
 
 
 # Sets path to Chrome executable, this is used by Apify.launchPuppeteer()
