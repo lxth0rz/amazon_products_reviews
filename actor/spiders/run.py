@@ -62,8 +62,8 @@ class amazon_products_reviews(Spider):
             self.first_page_only = actor_input["first_page_only"]
 
         for input_url in self.input_urls:
-            print('regex here for Amazon')
             url = input_url['url']
+            url = 'https://www.amazon.com/'
             if url.startswith('https://www.amazon.com/') or url.startswith("https://amazon.com/"):
                 yield Request(url=url,
                               headers=self.headers,
