@@ -6,7 +6,6 @@ from scrapy import Spider
 from urllib.parse import urljoin
 from apify_client import ApifyClient
 from scrapy.http.request import Request
-from scraper_api import ScraperAPIClient
 
 import nltk
 from nltk import FreqDist
