@@ -63,7 +63,7 @@ class amazon_products_reviews(Spider):
 
         for input_url in self.input_urls:
             url = input_url['url']
-            url = 'https://www.amazon.com/'
+            #url = 'https://www.amazon.com/s?i=electronics-intl-ship&bbn=16225009011&rh=n%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_36%3A10000-&s=price-asc-rank&dc&qid=1655371808&rnid=2421885011&ref=sr_nr_p_36_6'
             if url.startswith('https://www.amazon.com/') or url.startswith("https://amazon.com/"):
                 yield Request(url=url,
                               headers=self.headers,
