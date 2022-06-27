@@ -34,7 +34,7 @@ class amazon_products_reviews(Spider):
 
     first_page_only = False
 
-    input_urls = ['https://www.amazon.com/s?i=electronics-intl-ship&bbn=16225009011&rh=n%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_36%3A10000-&s=price-asc-rank&dc&qid=1655371808&rnid=2421885011&ref=sr_nr_p_36_6']
+    input_urls = [{'url': 'https://www.amazon.com/s?i=electronics-intl-ship&bbn=16225009011&rh=n%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_36%3A10000-&s=price-asc-rank&dc&qid=1655371808&rnid=2421885011&ref=sr_nr_p_36_6'}]
 
     def start_requests(self):
 
@@ -66,6 +66,7 @@ class amazon_products_reviews(Spider):
             url = input_url['url']
             if url.startswith('https://www.amazon.com/') or url.startswith("https://amazon.com/"):
                 yield Request(url=url,
+                              headers=self.headers,
                               callback=self.parse_overview_page)
 
     def parse_overview_page(self, response):
@@ -102,6 +103,7 @@ class amazon_products_reviews(Spider):
                     comments_url = 'https://www.amazon.com/product-reviews/{0}/'.format(res.strip())
                     yield Request(comments_url,
                                   meta=obj,
+                                  headers=self.headers,
                                   callback=self.parse_reviews_page)
 
         if not self.first_page_only:
@@ -111,6 +113,7 @@ class amazon_products_reviews(Spider):
                 next_url = urljoin(response.url, next_url)
                 yield Request(url=next_url,
                               meta=response.meta,
+                              headers=self.headers,
                               callback=self.parse_overview_page)
 
     def parse_reviews_page(self, response):
