@@ -40,8 +40,8 @@ class amazon_products_reviews(Spider):
 
         # nltk.download('punkt')
         # nltk.download('averaged_perceptron_tagger')
-        nltk.download('stopwords')
-        stopwords.words('english')
+        # nltk.download('stopwords')
+        # stopwords.words('english')
 
         self.logger = logging.getLogger()
 
@@ -61,13 +61,12 @@ class amazon_products_reviews(Spider):
             self.input_urls = actor_input["input_urls"]
             self.first_page_only = actor_input["first_page_only"]
 
-        print(type(self.input_urls))
-        print(self.input_urls)
-        # for input_url in self.input_urls:
-        #     print('regex here for Amazon')
-        #     if input_url.startswith('https://www.amazon.com/') or input_url.startswith("https://amazon.com/"):
-        #         yield Request(url=input_url,
-        #                       callback=self.parse_overview_page)
+        for input_url in self.input_urls:
+            print('regex here for Amazon')
+            url = input_url['url']
+            if url.startswith('https://www.amazon.com/') or url.startswith("https://amazon.com/"):
+                yield Request(url=url,
+                              callback=self.parse_overview_page)
 
     def parse_overview_page(self, response):
 
