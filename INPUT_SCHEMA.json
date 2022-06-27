@@ -14,6 +14,13 @@
                     "type": "boolean",
                     "description": "Only extract ASINs from first overview page only the stops the actor.",
                     "default": true
+        },
+       "proxyConfig": {
+            "title": "Proxy",
+            "type": "object",
+            "description": "Proxy servers let you bypass website protections, avoid IP address blocking and view content for other countries. Try to use the proxy if you are experiencing timeout errors.",
+            "default": {},
+            "editor": "proxy"
         }
     },
     "required": ["input_urls"]
