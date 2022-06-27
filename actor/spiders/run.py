@@ -38,12 +38,10 @@ class amazon_products_reviews(Spider):
 
     def start_requests(self):
 
-        nltk.download('punkt')
-        nltk.download('averaged_perceptron_tagger')
+        # nltk.download('punkt')
+        # nltk.download('averaged_perceptron_tagger')
         nltk.download('stopwords')
         stopwords.words('english')
-
-        self.client = ScraperAPIClient('e975377ad0743808eec179781696283c')
 
         self.logger = logging.getLogger()
 
