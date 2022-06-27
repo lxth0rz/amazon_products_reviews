@@ -61,11 +61,13 @@ class amazon_products_reviews(Spider):
             self.input_urls = actor_input["input_urls"]
             self.first_page_only = actor_input["first_page_only"]
 
-        for input_url in self.input_urls:
-            print('regex here for Amazon')
-            if input_url.startswith('https://www.amazon.com/') or input_url.startswith("https://amazon.com/"):
-                yield Request(url=input_url,
-                              callback=self.parse_overview_page)
+        print(type(self.input_urls))
+        print(self.input_urls)
+        # for input_url in self.input_urls:
+        #     print('regex here for Amazon')
+        #     if input_url.startswith('https://www.amazon.com/') or input_url.startswith("https://amazon.com/"):
+        #         yield Request(url=input_url,
+        #                       callback=self.parse_overview_page)
 
     def parse_overview_page(self, response):
 
@@ -99,11 +101,6 @@ class amazon_products_reviews(Spider):
                            'OverviewPageURL': response.url}
 
                     comments_url = 'https://www.amazon.com/product-reviews/{0}/'.format(res.strip())
-                    #yield scrapy.Request(client.scrapyGet(url='http://httpbin.org/ip', render=true), self.parse)
-
-                    #print (comments_url)
-                    #self.client.scrapyGet(url=comments_url, render=True)
-
                     yield Request(comments_url,
                                   meta=obj,
                                   callback=self.parse_reviews_page)
