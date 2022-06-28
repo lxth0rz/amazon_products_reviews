@@ -16,13 +16,14 @@ class amazon_products_reviews(Spider):
 
     name = 'amazon_products_comments'
 
-    headers = {'Host': 'www.amazon.com',
-               'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0',
-               'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-               'Accept-Language': 'en-GB,en;q=0.5',
-               'Accept-Encoding': 'gzip, deflate',
-               'Connection': 'keep-alive',
-               'Upgrade-Insecure-Requests': '1',}
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0',
+               'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+               'Accept-Language': 'en-US,en;q=0.5',
+               'Upgrade-Insecure-Requests': '1',
+               'Sec-Fetch-Dest': 'document',
+               'Sec-Fetch-Mode': 'navigate',
+               'Sec-Fetch-Site': 'none',
+               'Sec-Fetch-User': '?1',}
 
     client = None
 
@@ -63,6 +64,7 @@ class amazon_products_reviews(Spider):
 
         for input_url in self.input_urls:
             url = input_url['url']
+
             #url = 'https://www.amazon.com/s?i=electronics-intl-ship&bbn=16225009011&rh=n%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_36%3A10000-&s=price-asc-rank&dc&qid=1655371808&rnid=2421885011&ref=sr_nr_p_36_6'
             if url.startswith('https://www.amazon.com/') or url.startswith("https://amazon.com/"):
                 yield Request(url=url,
