@@ -24,10 +24,6 @@ RUN pip install requests
 RUN pip install scrapy
 RUN pip install apify-client
 RUN pip install nltk
-RUN pip install nltk
-RUN pip install scrapy-playwright
-RUN playwright install
-RUN playwright install-deps
 
 # Sets path to Chrome executable, this is used by Apify.launchPuppeteer()
 ENV APIFY_CHROME_EXECUTABLE_PATH=/usr/bin/google-chrome

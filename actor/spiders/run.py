@@ -10,7 +10,7 @@ from scrapy.http.request import Request
 import nltk
 from nltk import FreqDist
 from nltk.corpus import stopwords
-
+from scraper_api import ScraperAPIClient
 
 
 class amazon_products_reviews(Spider):
@@ -39,7 +39,11 @@ class amazon_products_reviews(Spider):
 
     input_urls = [{'url': 'https://www.amazon.com/s?i=electronics-intl-ship&bbn=16225009011&rh=n%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_36%3A10000-&s=price-asc-rank&dc&qid=1655371808&rnid=2421885011&ref=sr_nr_p_36_6'}]
 
+    client = None
+
     def start_requests(self):
+
+        self.client = ScraperAPIClient('e975377ad0743808eec179781696283c')
 
         nltk.download('punkt')
         nltk.download('averaged_perceptron_tagger')
@@ -69,8 +73,7 @@ class amazon_products_reviews(Spider):
 
             #url = 'https://www.amazon.com/s?i=electronics-intl-ship&bbn=16225009011&rh=n%3A541966%2Cn%3A13896617011%2Cn%3A565108%2Cp_36%3A10000-&s=price-asc-rank&dc&qid=1655371808&rnid=2421885011&ref=sr_nr_p_36_6'
             if url.startswith('https://www.amazon.com/') or url.startswith("https://amazon.com/"):
-                yield Request(url=url,
-                              meta={"playwright": True},
+                yield Request(url=self.client.scrapyGet(url=url),
                               callback=self.parse_overview_page)
 
     def parse_overview_page(self, response):
@@ -105,7 +108,7 @@ class amazon_products_reviews(Spider):
                            'OverviewPageURL': response.url}
 
                     comments_url = 'https://www.amazon.com/product-reviews/{0}/'.format(res.strip())
-                    yield Request(comments_url,
+                    yield Request(self.client.scrapyGet(url=comments_url),
                                   meta=obj,
                                   headers=self.headers,
                                   callback=self.parse_reviews_page)
@@ -115,7 +118,7 @@ class amazon_products_reviews(Spider):
             if next_url and len(next_url) > 0:
                 next_url = next_url.extract()[0]
                 next_url = urljoin(response.url, next_url)
-                yield Request(url=next_url,
+                yield Request(url=self.client.scrapyGet(url=next_url),
                               meta=response.meta,
                               headers=self.headers,
                               callback=self.parse_overview_page)

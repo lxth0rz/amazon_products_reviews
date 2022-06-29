@@ -10,7 +10,6 @@
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 import os
-from scrapy.utils.reactor import install_reactor
 
 BOT_NAME = 'amazon'
 
@@ -58,14 +57,6 @@ ROBOTSTXT_OBEY = False
 #DOWNLOADER_MIDDLEWARES = {
 #    'actor.middlewares.ActorDownloaderMiddleware': 543,
 #}
-DOWNLOAD_HANDLERS = {
-    "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-    "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
-}
-
-install_reactor('twisted.internet.asyncioreactor.AsyncioSelectorReactor')
-
-TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
