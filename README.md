@@ -1,4 +1,5 @@
 ## ASINs Extractor
+## Explain INPUTS AND OUTPUTS HERE Sir
 
 This actor allows you to extract ASINs from Amazon input URL.
  
